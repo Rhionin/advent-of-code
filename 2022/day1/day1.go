@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"math"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -12,14 +12,25 @@ import (
 //go:embed calorie-inventory.txt
 var calorieInventory string
 
-func getPart1Result() float64 {
-	lines := strings.Split(calorieInventory, "\n")
+func getCalorieCountForTopNElves(count int) float64 {
+	inventory := parseInventory()
 
-	var mostCaloriesSoFar float64
+	var totalCalories float64
+	for i := 0; i < count; i++ {
+		totalCalories += inventory[i]
+	}
+
+	return totalCalories
+}
+
+func parseInventory() []float64 {
+	inventory := []float64{}
+
 	var caloriesForCurrentElf float64
+	lines := strings.Split(calorieInventory, "\n")
 	for _, line := range lines {
 		if line == "" {
-			mostCaloriesSoFar = math.Max(caloriesForCurrentElf, mostCaloriesSoFar)
+			inventory = append(inventory, caloriesForCurrentElf)
 			caloriesForCurrentElf = 0
 			continue
 		}
@@ -31,5 +42,6 @@ func getPart1Result() float64 {
 		caloriesForCurrentElf += float64(caloriesInLineItem)
 	}
 
-	return mostCaloriesSoFar
+	sort.Sort(sort.Reverse(sort.Float64Slice(inventory)))
+	return inventory
 }
