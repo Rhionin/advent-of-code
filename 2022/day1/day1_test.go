@@ -1,7 +1,10 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func TestMain(t *testing.T) {
-	main()
+func TestPart1(t *testing.T) {
+	fmt.Println("The elf with the most calories has", getPart1Result())
 }

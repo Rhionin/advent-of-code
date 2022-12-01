@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"math"
 	"strconv"
@@ -13,7 +12,7 @@ import (
 //go:embed calorie-inventory.txt
 var calorieInventory string
 
-func main() {
+func getPart1Result() float64 {
 	lines := strings.Split(calorieInventory, "\n")
 
 	var mostCaloriesSoFar float64
@@ -30,8 +29,7 @@ func main() {
 			log.Fatal(err)
 		}
 		caloriesForCurrentElf += float64(caloriesInLineItem)
-
 	}
 
-	fmt.Println("The elf with the most calories has", mostCaloriesSoFar)
+	return mostCaloriesSoFar
 }
